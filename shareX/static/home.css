@@ -1,16 +1,50 @@
 /* Styles for home.css*/
+:root {
+    --primary-text: rgb(107, 124, 201);
+}
+
 *,
 ::before,
 ::after {
     box-sizing: border-box;
 }
 
+body {
+    
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+header > h1 {
+    margin: 0;
+}
+
+header > .logo {
+    color: var(--primary-text)
+} 
+
+header > button {
+    height: 30px;
+    background-color: rgb(141, 141, 189);
+    outline: none;
+    border: none;
+    color: black
+}
 
 .sessions {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+main > h1 {
+    color: var(--primary-text)
 }
 
 .session {

@@ -1,0 +1,16 @@
+:root {
+    --primary-text: rgb(107, 124, 201);
+}
+
+header {
+    position: fixed;
+    z-index: 1;
+}
+
+@media screen and (min-width: 700px) {
+    main {
+        width: 50vw;
+        margin: auto
+    }
+
+}
