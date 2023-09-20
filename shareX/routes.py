@@ -7,4 +7,6 @@ def home():
 
 @app.route('/chat')
 def chat():
+    # if button clicked is for new chat, give new chat
+    # if button cliacked  is for old chat, give old chat + previous messages
     return render_template('chat.html')

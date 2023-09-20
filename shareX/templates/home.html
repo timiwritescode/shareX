@@ -11,7 +11,7 @@
 
     <h1 class="logo">ShareX</h1>
     
-    <button> New message</button>
+    <button id="chatBtn"> New message</button>
 {% endblock %}
 
 {% block main%}
@@ -26,15 +26,15 @@
     
     <script>
         let messagePreviews = document.querySelector('.sessions').children
-
-
-
+        let chatBtn = document.getElementById('chatBtn')  
         Array.from(messagePreviews).forEach(element => {
             element.addEventListener('click', loadChatRoom)
         });
 
+        chatBtn.addEventListener('click', loadChatRoom)
+        
         function loadChatRoom(e) {
-            window.location.href = '/chat'
+                window.location.href = '/chat'
         }
     </script>
 {% endblock %}
