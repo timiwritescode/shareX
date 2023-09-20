@@ -8,7 +8,10 @@ dotenv.load_dotenv()
 
 app = Flask(__name__)
 
-if os.environ.get("APP_ENVIRON") == 'production':
+if os.environ.get("APP_ENV") == 'production':
     app.config.from_object(ProductionConfig)
 else:
     app.config.from_object(DevelopmentConfig)
+
+
+from shareX import routes
