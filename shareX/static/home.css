@@ -1,0 +1,30 @@
+/* Styles for home.css*/
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+
+.sessions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.session {
+    width: 100%;
+    max-height: 50px;
+    border: 1px solid blue;
+    box-shadow: 1px 1px  rgb(0,0,0);
+}
+
+.session > p,
+.session > h3 {
+    margin: 0
+}
+
+.session > .message-body {
+    font-size: 0.8rem;
+}
