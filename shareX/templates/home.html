@@ -16,11 +16,25 @@
 
 {% block main%}
     <h1 class="session-header">Messages</h1>
+
     <div class="sessions">
         <div class="session">
             <h3 class="message-header">Message 1</h3>
             <p class="message-body">Thi is the message from the last sent message</p>
         </div>
     </div>
- 
+    
+    <script>
+        let messagePreviews = document.querySelector('.sessions').children
+
+
+
+        Array.from(messagePreviews).forEach(element => {
+            element.addEventListener('click', loadChatRoom)
+        });
+
+        function loadChatRoom(e) {
+            window.location.href = '/chat'
+        }
+    </script>
 {% endblock %}

@@ -1,2 +1,19 @@
 {% extends 'base.html' %}
+{% block header %}
+    <h1>Chat</h1>
 
+    <h1 class="logo">ShareX</h1>
+    
+    <button id="home-btn"> Home </button>
+{% endblock %}
+
+{% block main%}
+    <script type="text/javascript">
+        let homeBtn = document.getElementById('home-btn')
+        homeBtn.addEventListener('click', navigateToHome)
+
+        function navigateToHome () {
+            window.location.href = '/'
+        }
+    </script>
+{% endblock %}
