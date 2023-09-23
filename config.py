@@ -8,10 +8,9 @@ class Config:
     Flask app configuration settings
     """
     DEBUG = False
-    secret_key = os.getenv("SECRET_KEY")
+    SECRET_KEY = os.getenv("SECRET_KEY")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLACHEMY_DATABASE_URI = os.getenv("DB_URI")
-
+    SQLALCHEMY_DATABASE_URI = os.getenv("DB_URI")    
 
 class ProductionConfig:
     """

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<header id="start-header">
+    <h1>StartX</h1>
+</header>
+{% endblock %}
+
+{% block main %}
+<main id="start-main">
+    <button id="login-button">Login</button>
+    <button id="register-button">Register</button>
+</main>
+
+<script type="text/javascript">
+    let loginBtn = document.getElementById('login-button')
+    let registerBtn = document.getElementById('register-button')
+
+    loginBtn.addEventListener('click', () => {
+        window.location.href = '/login'
+    })
+
+    registerBtn.addEventListener('click', () => {
+        window.location.href = '/register'
+    })
+</script>
+{% endblock %}

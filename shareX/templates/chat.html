@@ -1,13 +1,53 @@
 {% extends 'base.html' %}
 {% block header %}
+<header>
     <h1>Chat</h1>
 
     <h1 class="logo">ShareX</h1>
     
     <button id="home-btn"> Home </button>
+</header>   
+
 {% endblock %}
 
 {% block main%}
+<main id="chat-main">
+    <div class="chat-container">
+        <div class="chat-messages">
+            <div class="chat-message">
+                <div class="message received">User
+                    <div class="time">12:00</div>
+                </div>
+                <div class="message sent">Hello!
+                    <div class="time">12:00</div>
+                </div>
+                
+                <div class="chat-message">
+                    <div class="message received">User
+                        <div class="time">12:00</div>
+                    </div>
+                    <div class="message sent">I missed your call hope you are good?!
+                        <div class="time">12:00</div>
+                    </div>
+            </div>
+            <div class="chat-message">
+                <div class="message received">Yeah, it's all good, i just missed you a bit, so i thought to call
+                    <div class="time">12:00</div>
+                </div>
+            </div>    
+        </div>
+         
+    </div>
+    <div class="input-area">
+        <form id="chat-form" action="">
+              <textarea class="text" placeholder="Send a message">
+              </textarea>
+              <button type="submit">Send</button>
+              
+       </form>
+      </div>
+</main>    
+    
     <script type="text/javascript">
         let homeBtn = document.getElementById('home-btn')
         homeBtn.addEventListener('click', navigateToHome)

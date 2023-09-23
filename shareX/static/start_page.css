@@ -1,0 +1,40 @@
+/* Styles for start_page.html*/
+:root {
+    --primary-text: rgb(110, 129, 216);
+    --btn-hover-bg: rgb(107, 124, 201);
+}
+
+
+#start-header > h1 {
+    color: var(--primary-text);
+    text-align: right;
+    margin: auto
+}
+
+#start-main {
+    display: flex;
+    justify-content: center;
+}
+
+#start-main > button {
+    background-color: var(--primary-text);
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1.2rem;
+    
+}
+
+#start-main > button:hover {
+    background-color: var(--btn-hover-bg);
+    cursor: pointer;
+}
+
+#start-main > button:first-of-type {
+    margin-right: 1rem;
+}
+
+#start-main > button:nth-of-type(2) {
+    margin-left: 1rem;
+}

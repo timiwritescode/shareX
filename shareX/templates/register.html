@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<header id="register-header">
+    <h1 class="logo">ShareX</h1>
+    <h2>Pleased to have you here!</h2>
+</header>
+{% endblock %}
+
+{% block main %}
+<main id="register-main">
+    <h1 class="register-hero">Register</h1>
+    <form id="register-form" action="{{url_for('register')}}" method="post">
+            <label for="username">Username</label>
+        <input type="text" name="username" id="username" placeholder="Enter your name">
+        
+        <label for="password">Enter Password</label>
+        <input type="password" name="password" id="password" placeholder="Enter password">
+        
+        <label for="password-confirm">Confirm Password</label>
+        <input type="password" name="password-confirm" id="password-confirm" placeholder="Enter password">
+        <button type="submit">Submit</button>
+    </form>
+
+</main>
+{% endblock %}

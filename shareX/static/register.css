@@ -1,0 +1,56 @@
+/* Styles for register.css*/
+:root {
+    --primary-text: rgb(107, 124, 201);
+}
+
+
+header {
+    position: sticky;
+    z-index: 1;
+    width: 100vw;
+    background-color: white;
+    
+}
+
+
+#register-header  {
+    display: flex;
+    flex-direction: column;
+}
+
+#register-main {
+    width: 70%;
+    margin: auto;
+    border: 1px solid var(--primary-text);
+    padding: 10px 8px;
+    border-radius: 10px; 
+}
+
+#register-main > h1 {
+    text-align: center;
+
+}
+
+
+#register-form {
+    display: flex;
+    flex-direction: column;
+    
+
+}
+
+#register-form > input {
+    margin-bottom: 0.5rem;
+    
+} 
+
+#register-form > button {
+    width: 40%;
+    margin: auto
+}
+
+@media screen and (min-width: 700px) {
+    #register-main {
+        width: 30%;
+    }
+} 

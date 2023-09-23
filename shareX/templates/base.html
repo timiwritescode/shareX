@@ -5,17 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="/static/home.css">
-    <link rel="stylesheet" href="/static/base.css">
+    <link rel="stylesheet" href="../static/chat.css">
+    <link rel="stylesheet" href="../static/register.css">
+    <link rel="stylesheet" href="../static/start_page.css">
 </head>
 <body>
-    <header>
-        {% block header %}
-        {% endblock %}
-    </header>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+                <li>{{ message }}</li>    
+            {% endfor %}
+        </ul>
+        
+        {% endif %}
+    {% endwith %}
 
-    <main>
-        {% block main %}
-        {% endblock %}
-    </main>
+    {% block header %}
+    {% endblock %}
+    
+
+    
+    {% block main %}{% endblock %}
+    
 </body>
 </html>

@@ -5,16 +5,20 @@
 {% endblock %}
 
 {% block header %}
-    <h1>
-        Home
-    </h1>
-
-    <h1 class="logo">ShareX</h1>
+    <header id="home-header">
+        <h1>
+            Home
+        </h1>
     
-    <button id="chatBtn"> New message</button>
+        <h1 class="logo">ShareX</h1>
+        
+        <button id="chatBtn"> New message</button>
+    </header>
+    
 {% endblock %}
 
 {% block main%}
+<main id="home-main">
     <h1 class="session-header">Messages</h1>
 
     <div class="sessions">
@@ -23,6 +27,8 @@
             <p class="message-body">Thi is the message from the last sent message</p>
         </div>
     </div>
+    
+</main>    
     
     <script>
         let messagePreviews = document.querySelector('.sessions').children
