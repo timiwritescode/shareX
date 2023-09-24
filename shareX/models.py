@@ -13,13 +13,22 @@ class User(db.Model):
         self.username = username
         self.password = password
 
-    def is_username_present(self):
-        
-        user = db.get_or_404(User, self.username)
-        if user:
-            return True
-         
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
 
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def check_password_correction(self, attempted_password):
+        """Function to check if the password attempted is matches that of user"""         
+        if self.password == attempted_password:
+            return True 
+        return False
 class Message(db.Model):
     __tablename__ = 'message'
     id = db.Column(db.Integer(), primary_key=True)

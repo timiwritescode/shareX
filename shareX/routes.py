@@ -5,6 +5,7 @@ from flask import (render_template,
 from .util.helper_functions import *
 from .models import User, Message
 from shareX import db
+from sqlalchemy.exc import NoResultFound
 
 @app.route('/')
 @app.route('/start')
@@ -13,6 +14,7 @@ def start():
 
 @app.route('/home')
 def home():
+    # all the messages specific to the user
     return render_template('home.html')
 
 @app.route('/chat')
@@ -20,6 +22,7 @@ def chat():
     # if button clicked is for new chat, give new chat
     # if button clicked  is for old chat, give old chat + previous messages
     
+
     return render_template('chat.html')
 
 
@@ -56,8 +59,22 @@ def login():
     if request.method == "POST":
         username = request.form['username']
         password = request.form['password']
-        user = User(username=username, password=password)
-        if user.is_username_present():
-            print(user.username)
-            return {1: True}
+        print(password, username)
+        try:
+            user = db.session.execute(db.select(User).filter_by(username=username)).scalar_one()
+            if user.check_password_correction(password):
+                flash("Welcome back", category="success")
+                return redirect(url_for("home"))
+            else:
+                flash("Username or password incorrect", category="Error")            
+                return redirect(url_for("login"))
+        except NoResultFound:
+            flash("Username or password incorrect", category="error")
+            return redirect(url_for("login"))    
+        
+        except Exception as e:
+            flash("An error occured, don't worry it's us not you", category="error")
+            return redirect(url_for("login"))    
+        
+         
     return render_template('login.html')
