@@ -1,20 +1,12 @@
+from shareX import db
 
-def is_username_present(dictionary, username):
-    for key in dictionary.keys():
-        if dictionary[key]['username'] == username:
-            return True
-    
-    return False    
 
-def validate_password(dict, username, password):
-    for key, value in dict.items():
-        if dict[key]['password'] == password:
-            return True 
-
+def validate_password(id, password):
+    user = db.session.execute
     return False
 
 
-def confirm_password(password,confirmation): 
+def confirm_password(password, confirmation): 
     """
     Confirm if password submitted by user is correct
     """
