@@ -10,15 +10,30 @@
 {% block main %}
 <main id="register-main">
     <h1 class="register-hero">Login</h1>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                    {% if category == "password-error" %}
+                    <div id="flash" class="{{ category }}">
+                            <p>{{ message }}</p>                      
+                    </div>
+                    {% endif %}    
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    
     <form id="register-form" action="{{url_for('login')}}" method="post">
             <label for="username">Username</label>
-            <input type="text" name="username" id="username" placeholder="Enter your name">
+            <input type="text" name="username" id="username" placeholder="Enter your name" required>
         
         <label for="password">Enter Password</label>
-        <input type="password" name="password" id="password" placeholder="Enter password">
+        <input type="password" name="password" id="password" placeholder="Enter password" required>
         
         <button type="submit">Submit</button>
     </form>
     <p><a href="#" style="color: inherit">Forgot password?</a></p>
+    <p>New User? <a href="/register" style="color: inherit" >Register</a></p>
 </main>
 {% endblock %}

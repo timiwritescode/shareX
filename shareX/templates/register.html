@@ -10,17 +10,64 @@
 {% block main %}
 <main id="register-main">
     <h1 class="register-hero">Register</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                    {% if category == "password-error" %}
+                    <div id="flash" class="{{ category }}">
+                            <p>{{ message }}</p>                      
+                    </div>
+                    {% endif %}    
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     <form id="register-form" action="{{url_for('register')}}" method="post">
-            <label for="username">Username</label>
-        <input type="text" name="username" id="username" placeholder="Enter your name">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" placeholder="Enter your name" required>
         
         <label for="password">Enter Password</label>
-        <input type="password" name="password" id="password" placeholder="Enter password">
+        <input type="password" name="password" id="password" placeholder="Enter password" required>
         
         <label for="password-confirm">Confirm Password</label>
-        <input type="password" name="password-confirm" id="password-confirm" placeholder="Enter password">
-        <button type="submit">Submit</button>
+        <input type="password" name="password-confirm" id="password-confirm" placeholder="Enter password" required>
+        
+        <p class="error-message">Passwords do not match </p>
+        
+        <button type="submit" id="submit-btn">Submit</button>
+        
     </form>
 
+    
 </main>
+
+<script type="text/javascript">
+    const submitButton = document.getElementById('submit-btn')
+    const main =  document.getElementById('register-main').children
+    const bodyElements =  document.body.children
+    const flash = document.getElementById("flash")   
+    console.log(flash)
+    
+    function handlePasswordError () {
+        const confirmPassword = document.getElementById("password-confirm")
+        const errorMessage =  document.querySelector(".error-message"); 
+        
+        confirmPassword.classList.add('error-field');
+        errorMessage.style.display = 'inherit';
+    }
+
+    function handleUserNameError() {
+        const usernameField =  document.getElementById("username")
+        usernameField.classList.add('error-field')
+    }
+
+    if (Array.from(main).includes(flash)){
+        console.log(true)
+        handlePasswordError()
+    }; 
+
+    if (Array.from(bodyElements).includes(flash)) {
+        handleUserNameError()
+    };
+    </script>
 {% endblock %}

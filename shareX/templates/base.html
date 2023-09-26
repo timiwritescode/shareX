@@ -8,16 +8,18 @@
     <link rel="stylesheet" href="../static/chat.css">
     <link rel="stylesheet" href="../static/register.css">
     <link rel="stylesheet" href="../static/start_page.css">
+    <link rel="stylesheet" href="../static/base.css">
 </head>
 <body>
-    {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-        <ul class="flashes">
-            {% for message in messages %}
-                <li>{{ message }}</li>    
+            {% for category, message in messages %}
+                {% if category != "password-error" %}
+                    <div id="flash" class="{{ category }}">
+                            <p>{{ message }}</p>                      
+                    </div>
+                {% endif %}
             {% endfor %}
-        </ul>
-        
         {% endif %}
     {% endwith %}
 

@@ -5,7 +5,8 @@ from flask import (render_template,
 from .util.helper_functions import *
 from .models import User, Message
 from shareX import db
-from sqlalchemy.exc import NoResultFound
+from sqlalchemy.exc import NoResultFound, IntegrityError
+
 
 @app.route('/')
 @app.route('/start')
@@ -15,6 +16,7 @@ def start():
 @app.route('/home')
 def home():
     # all the messages specific to the user
+    
     return render_template('home.html')
 
 @app.route('/chat')
@@ -41,14 +43,21 @@ def register():
                 db.session.commit()
                 flash("User successfully created", "success")
                 return redirect(url_for('login'))
+            
+            except IntegrityError:
+                flash("Username already exists, try another one", 
+                      category="username-error")
+                return redirect(url_for("register"))
             except Exception as e:
                 print(e)
-                flash("An error occured, don't worry it's us not you", 'error')
+                flash("An error occured, don't worry it's us not you", 
+                      category='register-error')
             return redirect(url_for("register"))
 
                 
         else: 
-            flash("Password does not match", 'error')
+            flash("Password does not match", 
+                  category='password-error')
             return redirect(url_for("register"))
 
     return render_template('register.html')             
@@ -66,10 +75,10 @@ def login():
                 flash("Welcome back", category="success")
                 return redirect(url_for("home"))
             else:
-                flash("Username or password incorrect", category="Error")            
+                flash("Username or password incorrect", category="password-error")            
                 return redirect(url_for("login"))
         except NoResultFound:
-            flash("Username or password incorrect", category="error")
+            flash("Username or password incorrect", category="password-error")
             return redirect(url_for("login"))    
         
         except Exception as e:

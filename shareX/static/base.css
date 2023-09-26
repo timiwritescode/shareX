@@ -1,0 +1,30 @@
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+#flash {
+    margin: auto;
+    border-bottom: 1rem;
+    padding: 2px;
+    border-radius: 0.8rem; 
+}
+
+.error, 
+.password-error,
+.username-error {
+    background-color: #f8d7da;
+    color: #7a272e;
+    
+}
+
+.success {
+    background-color: #d4edda;
+    color: #236232
+}
+
+#flash > p {
+    text-align: center;
+    font-size: 0.8rem;
+}
