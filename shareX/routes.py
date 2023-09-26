@@ -16,7 +16,7 @@ def start():
 @app.route('/home')
 def home():
     # all the messages specific to the user
-    
+    flash("Welcome! You are logged in", category="success" )
     return render_template('home.html')
 
 @app.route('/chat')

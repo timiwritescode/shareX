@@ -16,8 +16,11 @@
             {% for category, message in messages %}
                 {% if category != "password-error" %}
                     <div id="flash" class="{{ category }}">
-                            <p>{{ message }}</p>                      
+                            <p>{{ message }}</p>       
+                            <div class="cancel-button">X</div>               
+                    <div class="countdown-bar"></div>    
                     </div>
+                    
                 {% endif %}
             {% endfor %}
         {% endif %}
@@ -30,5 +33,33 @@
     
     {% block main %}{% endblock %}
     
+    <script type="text/javascript">
+        const cancelBtn = document.querySelector(".cancel-button");
+
+        cancelBtn.addEventListener('click', handleDeleteFlashedMessageButton)
+
+        function handleDeleteFlashedMessageButton () {
+            const flash =  document.getElementById('flash');
+
+            flash.parentNode.removeChild(flash)
+        }
+
+        function reduceLengthOfBar() {
+            // This is a function to reduce the length of the countdown bar per time
+            const bar = document.querySelector('.countdown-bar');
+            
+            
+            if (bar.offsetWidth == 0) {
+                handleDeleteFlashedMessageButton()
+                clearInterval(intervalId)
+            } else {
+                bar.style.width = `${bar.offsetWidth-1}px`
+            }
+        }
+
+        let intervalId = setInterval(() => {reduceLengthOfBar()}, 10)
+
+        
+</script>
 </body>
 </html>
