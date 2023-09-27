@@ -11,36 +11,32 @@
 {% endblock %}
 
 {% block main%}
+<div class="username-container">Logged in as <h4 class="username">{{current_username}}</h4></div>
 <main id="chat-main">
     <div class="chat-container">
         <div class="chat-messages">
-            <div class="chat-message">
-                <div class="message received">User
-                    <div class="time">12:00</div>
-                </div>
-                <div class="message sent">Hello!
-                    <div class="time">12:00</div>
-                </div>
+            
+
+            {% for message in previous_messages %}
+            <div class="chat-message sent" data-message-id="{{message.id}}">
                 
-                <div class="chat-message">
-                    <div class="message received">User
-                        <div class="time">12:00</div>
-                    </div>
-                    <div class="message sent">I missed your call hope you are good?!
-                        <div class="time">12:00</div>
-                    </div>
-            </div>
-            <div class="chat-message">
-                <div class="message received">Yeah, it's all good, i just missed you a bit, so i thought to call
-                    <div class="time">12:00</div>
+                <div class="message"> {{message.message}}</div>
+                <div class="time">{{message.updated_at}}</div>
+                <div  id="dots" class="dots-container"><h4 class="dots">...</h4></div>
+                <div id="dialog-box" class="dialog-box">
+                    
+                    <button type="submit" onclick="deleteMessage({{message.id}})" class="delete-message">Delete message</button>
+                    <button type="submit" class="edit-message">Edit Message</button>    
+                    
                 </div>
-            </div>    
+            </div>
+            {% endfor %}
         </div>
          
     </div>
     <div class="input-area">
-        <form id="chat-form" action="">
-              <textarea class="text" placeholder="Send a message">
+        <form id="chat-form" action="{{url_for('chat')}}" method="post">
+              <textarea name="msg-input" id="msg-input" class="text" placeholder="Send a message">
               </textarea>
               <button type="submit">Send</button>
               
@@ -51,6 +47,37 @@
     <script type="text/javascript">
         let homeBtn = document.getElementById('home-btn')
         homeBtn.addEventListener('click', navigateToHome)
+        
+        let dotsBtns = document.querySelectorAll('#dots')
+        Array.from(dotsBtns).forEach((dotsBtn) => {
+            dotsBtn.addEventListener('click', () => {
+            const dialogBox = dotsBtn.parentNode.querySelector('#dialog-box')
+            if (dialogBox.classList.contains('dialog-box-show')) {
+                dialogBox.classList.remove('dialog-box-show')
+            } else {
+                dialogBox.classList.add('dialog-box-show')
+            }
+        })
+
+        })
+
+        function deleteMessage(messageId) {
+            fetch(`/chat/delete_message/${messageId}`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then(response => {
+                if (response.ok) {
+                    const messageElement = document.querySelector(`.chat-message[data-message-id="${messageId}"]`)
+                    if (messageElement) {
+                        messageElement.remove();
+                    }
+                }
+            }).catch(error => {
+                console.error('Error deleting message', error);
+            });
+        }
 
         function navigateToHome () {
             window.location.href = '/'

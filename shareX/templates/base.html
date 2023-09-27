@@ -36,12 +36,17 @@
     <script type="text/javascript">
         const cancelBtn = document.querySelector(".cancel-button");
 
-        cancelBtn.addEventListener('click', handleDeleteFlashedMessageButton)
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', handleDeleteFlashedMessageButton)
+        
 
         function handleDeleteFlashedMessageButton () {
             const flash =  document.getElementById('flash');
 
             flash.parentNode.removeChild(flash)
+
+            // clear the interval set without waiting for the countdown to end 
+            clearInterval(intervalId)
         }
 
         function reduceLengthOfBar() {
@@ -51,7 +56,6 @@
             
             if (bar.offsetWidth == 0) {
                 handleDeleteFlashedMessageButton()
-                clearInterval(intervalId)
             } else {
                 bar.style.width = `${bar.offsetWidth-1}px`
             }
@@ -59,7 +63,7 @@
 
         let intervalId = setInterval(() => {reduceLengthOfBar()}, 10)
 
-        
+    } 
 </script>
 </body>
 </html>

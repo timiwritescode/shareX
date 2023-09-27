@@ -1,32 +1,69 @@
-from shareX import app
+from shareX import app, login_manager
 from flask import (render_template, 
                    request, redirect, url_for, 
-                   flash) 
+                   flash, jsonify) 
 from .util.helper_functions import *
 from .models import User, Message
 from shareX import db
 from sqlalchemy.exc import NoResultFound, IntegrityError
-
+from flask_login import login_required, login_user, current_user 
 
 @app.route('/')
 @app.route('/start')
 def start():
     return render_template('start_page.html')
 
+
 @app.route('/home')
+@login_required
 def home():
     # all the messages specific to the user
     flash("Welcome! You are logged in", category="success" )
     return render_template('home.html')
 
-@app.route('/chat')
+@app.route('/chat', methods=['GET', 'POST', 'DELETE'])
+@login_required
 def chat():
     # if button clicked is for new chat, give new chat
     # if button clicked  is for old chat, give old chat + previous messages
-    
+    try:
+        user_id = current_user.id
+        previous_messages = db.session.execute(db.select(Message).filter_by(user_id=user_id)).scalars()
+        
+        current_username = current_user.username
+        if request.method == "POST":
+            form_message = request.form['msg-input']     
+            message = Message(message=form_message, message_id=user_id, user_id=user_id)
+            db.session.add(message)
+            db.session.commit()
+            return redirect(url_for('chat'))
+    except Exception as e:
+        flash("An error occured", category="error")
+        print(e)
+        return redirect(url_for('chat'))        
+    return render_template('chat.html', 
+                           previous_messages=previous_messages,
+                           current_username=current_username,) 
 
-    return render_template('chat.html')
-
+@app.route('/chat/delete_message/<int:message_id>', methods=['POST'])
+@login_required
+def delete_message(message_id):
+    try:
+        message = db.session.execute(db.select(Message).filter_by(id=message_id)).scalar_one()
+        db.session.delete(message)
+        db.session.commit()
+        responseObject = {
+            'status': 'success'
+        }
+        return jsonify(responseObject), 200     
+    except Exception as e:
+        print(e)
+        responseObject = {
+            'status': 'fail'
+        }
+        return jsonify(responseObject), 500
+     
+   
 
 @app.route('/register', methods=["POST", "GET"])
 def register():
@@ -72,8 +109,10 @@ def login():
         try:
             user = db.session.execute(db.select(User).filter_by(username=username)).scalar_one()
             if user.check_password_correction(password):
-                flash("Welcome back", category="success")
-                return redirect(url_for("home"))
+                login_user(user)
+                # flask login automatically sets a welcome message so no need for one
+                flash("Successfully logged in", category="success")
+                return redirect(url_for("chat"))
             else:
                 flash("Username or password incorrect", category="password-error")            
                 return redirect(url_for("login"))
@@ -87,3 +126,9 @@ def login():
         
          
     return render_template('login.html')
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    return redirect(url_for('login'))

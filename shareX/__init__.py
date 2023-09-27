@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_login import LoginManager
 from config import ProductionConfig, DevelopmentConfig
 import os
 import dotenv
@@ -18,7 +19,10 @@ else:
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-
+login_manager = LoginManager(app)
+login_manager.login_view = "login"
+login_manager.login_message_category = "warning"
+login_manager.login_message = None
 
 from .models import User, Message
 from shareX import routes
