@@ -26,10 +26,19 @@
                 <div id="dialog-box" class="dialog-box">
                     
                     <button type="submit" onclick="deleteMessage({{message.id}})" class="delete-message">Delete message</button>
-                    <button type="submit" class="edit-message">Edit Message</button>    
-                    
+                    <button type="submit" onclick="showEditInput({{message.id}})" class="edit-message">Edit Message</button>    
+                                   
+                    </div>
+                
+             </div>
+             
+             <!--<form id="patch-form">-->
+                <div class="edit-container" data-message-id="{{message.id}}">
+                    <textarea name="edit" id="edit-textarea" cols="30" rows="10" data-message-id="{{message.id}}"></textarea>
+                    <button onclick="editMessage({{message.id}})" type="submit">Edit</button>
+                    <button class="cancel-btn" onclick="hideEditInput({{message.id}})">Cancel</button>        
                 </div>
-            </div>
+             <!--</form>-->
             {% endfor %}
         </div>
          
@@ -44,43 +53,6 @@
       </div>
 </main>    
     
-    <script type="text/javascript">
-        let homeBtn = document.getElementById('home-btn')
-        homeBtn.addEventListener('click', navigateToHome)
-        
-        let dotsBtns = document.querySelectorAll('#dots')
-        Array.from(dotsBtns).forEach((dotsBtn) => {
-            dotsBtn.addEventListener('click', () => {
-            const dialogBox = dotsBtn.parentNode.querySelector('#dialog-box')
-            if (dialogBox.classList.contains('dialog-box-show')) {
-                dialogBox.classList.remove('dialog-box-show')
-            } else {
-                dialogBox.classList.add('dialog-box-show')
-            }
-        })
-
-        })
-
-        function deleteMessage(messageId) {
-            fetch(`/chat/delete_message/${messageId}`, {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }).then(response => {
-                if (response.ok) {
-                    const messageElement = document.querySelector(`.chat-message[data-message-id="${messageId}"]`)
-                    if (messageElement) {
-                        messageElement.remove();
-                    }
-                }
-            }).catch(error => {
-                console.error('Error deleting message', error);
-            });
-        }
-
-        function navigateToHome () {
-            window.location.href = '/'
-        }
-    </script>
+    <script src="{{url_for('static', filename='js/chat.js')}}"></script>
+    
 {% endblock %}

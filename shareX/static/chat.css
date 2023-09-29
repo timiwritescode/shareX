@@ -20,6 +20,16 @@
     display: inherit
 }
 
+.edit-container {
+    display: none
+
+}
+
+/*Class toggleable by javascript for the edit message container*/
+.edit-container-show {
+    display: inherit
+}
+
 #chat-form {
     margin: auto;
     display: flex;

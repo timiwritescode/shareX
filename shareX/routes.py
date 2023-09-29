@@ -64,6 +64,24 @@ def delete_message(message_id):
         return jsonify(responseObject), 500
      
    
+@app.route('/chat/edit_message/<int:message_id>', methods=['PATCH'])
+@login_required
+def edit_message(message_id):
+    try:
+        if request.method == "PATCH":
+            data =  request.get_json() 
+            print(data)
+            
+            if "editMessage" in data:
+                message = db.session.execute(db.select(Message). filter_by(id=message_id)).scalar_one()
+                message.message = data["editMessage"]
+                db.session.add(message)
+                db.session.commit()
+
+            return jsonify({'status': 'success'}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({'status': 'fail'}), 500    
 
 @app.route('/register', methods=["POST", "GET"])
 def register():
