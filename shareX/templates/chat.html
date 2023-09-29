@@ -19,36 +19,35 @@
 {% block main%}
 
 <main id="chat-main">
-    <div class="chat-container">
+    
         <div class="chat-messages">
             
 
             {% for message in previous_messages %}
-            <div class="chat-message sent" data-message-id="{{message.id}}">
-                
-                <div class="message"> {{message.message}}</div>
-                <div class="time">{{message.updated_at}}</div>
-                <div  id="dots" class="dots-container"><h4 class="dots">...</h4></div>
-                <div id="dialog-box" class="dialog-box">
+                <div class="chat-message sent" data-message-id="{{message.id}}">
+                   
                     
-                    <button type="submit" onclick="deleteMessage({{message.id}})" class="delete-message">Delete message</button>
-                    <button type="submit" onclick="showEditInput({{message.id}})" class="edit-message">Edit Message</button>    
-                                   
+                    <div class="message"> {{message.message}}</div>
+                    <div class="time">{{message.updated_at}}</div>
+                    <div  id="dots" class="dots-container"><h4 class="dots">...</h4></div>
+                    <div id="dialog-box" class="dialog-box">
+                        <button type="submit" onclick="deleteMessage({{message.id}})" class="delete-message">Delete message</button>
+                        <button type="submit" onclick="showEditInput({{message.id}})" class="edit-message">Edit Message</button>     
                     </div>
-                
-             </div>
-             
-             <!--<form id="patch-form">-->
-                <div class="edit-container" data-message-id="{{message.id}}">
-                    <textarea name="edit" id="edit-textarea" cols="30" rows="10" data-message-id="{{message.id}}"></textarea>
-                    <button onclick="editMessage({{message.id}})" type="submit">Edit</button>
-                    <button class="cancel-btn" onclick="hideEditInput({{message.id}})">Cancel</button>        
-                </div>
-             <!--</form>-->
+                    
+                <!--<form id="patch-form">-->
+                    <div class="edit-container" data-message-id="{{message.id}}">
+                        <textarea name="edit" id="edit-textarea" cols="30" rows="10" data-message-id="{{message.id}}"></textarea>
+                        <button onclick="editMessage({{message.id}})" type="submit">Edit</button>
+                        <button class="cancel-btn" onclick="hideEditInput({{message.id}})">Cancel</button>        
+                    </div>
+                <!--</form>-->
+                </div>   
             {% endfor %}
-        </div>
+        </div>    
          
-    </div>
+    
+    
     <div class="input-area">
         <form id="chat-form" action="{{url_for('chat')}}" method="post">
               <textarea name="msg-input" id="msg-input" class="text" placeholder="Send a message">
@@ -59,6 +58,6 @@
       </div>
 </main>    
     
-    <script src="{{url_for('static', filename='js/chat.js')}}"></script>
-    
+    <script type="module" src="{{url_for('static', filename='js/chat.js')}}"></script>
+    <script type="module" src="{{url_for('static', filename='js/date.js')}}"></script>
 {% endblock %}

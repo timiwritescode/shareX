@@ -60,16 +60,38 @@
 -------------------------------------------------------------------*/
 
 /*---------------------The chat box-----------------------------------------------*/
-
-.chat-message {
-    margin-bottom: 1rem;
-    border-radius: 10px 0px 10px 10px;
-    padding: 0.5rem;
+.date-container {
     background-color: var(--primary-bg);
     color: white;
-    clear: both;
-    float: right;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    width: 60%;
+    border-radius: 10px;
+    margin: auto;
 }
+
+.chat-messages {
+    max-height: 80vh;
+    overflow-y: scroll; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.chat-message {
+    max-width: fit-content;
+    background-color: var(--primary-bg);
+    color: white;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    padding: 10px;
+    position: relative;
+    right: 0    
+}
+
+
 
 .dots {
     margin: 0;

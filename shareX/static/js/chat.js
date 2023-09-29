@@ -1,3 +1,5 @@
+import {month, weekday} from "./date.js"
+
 let homeBtn = document.getElementById('home-btn')
 homeBtn.addEventListener('click', navigateToHome)
 
@@ -80,3 +82,38 @@ function deleteMessage(messageId) {
 function navigateToHome () {
     window.location.href = '/'
 }
+
+// function to get the current date
+function getDate() {
+    let today = new Date()
+    today.setHours(0,0,0,0)
+    let currentMonth = today.getMonth() + 1 // javascripts start couting index of month from 0
+    let day = today.getDay()   
+    let date = today.getDate()
+    let year = today.getFullYear()
+    currentMonth = month[currentMonth]
+    day = weekday[day]
+    return `${day}, ${currentMonth} ${date}, ${year}`
+}
+
+// function to post date on chat room 
+function postDate() {
+    let today = getDate()
+    const dateElement = document.querySelector(`.date-container[data-date="${getDate()}"]`);
+    console.log(dateElement)
+    if (!dateElement) {
+        createDateElement(today)
+    }
+    
+}
+
+function createDateElement (date) {
+    const dateContainer = document.createElement('div');
+    dateContainer.classList.add('date-container');
+    dateContainer.attributes["data-date"] = date
+    dateContainer.textContent = date;
+    const messageArea =  document.querySelector('.chat-messages');
+    messageArea.appendChild(dateContainer)
+}  
+
+window.addEventListener('DOMContentLoaded', postDate)
