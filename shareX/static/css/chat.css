@@ -1,3 +1,58 @@
+/* The header section which includes the logo, username and some buttons */
+#chat-header {
+    display: grid;
+    grid-template-columns: 10% 10% 30% 40% 10%;
+    align-items: center;     
+    max-width: 100%;
+
+}
+
+
+#chat-header > .logo > h1,
+.home-btn > h1,
+.username > h2 {
+    margin: 0;
+    
+}
+
+.home-btn {
+    cursor: pointer;
+}
+
+.username {
+    border-left: 1px solid #007bff;
+    margin-left: 0.4rem;
+}
+
+.options > h1 {
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    
+}
+
+.icon {
+    height: 40px;
+    border-radius: 50%;
+    background:linear-gradient(#628cb9, rgb(192, 150, 192)) ;
+}
+
+#chat-header > button {
+    background-color: transparent;
+    font-size: 1.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 1s;
+}
+
+#chat-header > button:hover {
+    background-color: #007bff;
+
+}
+
+div.username-container > h4 {
+    display: inline;
+}
+
 .chat-message {
     border: 1px solid blue;
 }
