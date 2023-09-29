@@ -6,7 +6,11 @@ Array.from(dotsBtns).forEach((dotsBtn) => {
     dotsBtn.addEventListener('click', () => {
     const dialogBox = dotsBtn.parentNode.querySelector('#dialog-box')
     if (dialogBox.classList.contains('dialog-box-show')) {
+        // show the dialog box
         dialogBox.classList.remove('dialog-box-show')
+        // and also hide the text area of the edit message 
+        const messageId = dotsBtn.parentNode.attributes['data-message-id'].value
+        hideEditInput(+messageId)
     } else {
         dialogBox.classList.add('dialog-box-show')
     }
@@ -19,7 +23,8 @@ function showEditInput(messageId) {
     editMessage.classList.add('edit-container-show')
     const editTextArea = editMessage.querySelector('textarea');
     const message = document.querySelector(`.chat-message[data-message-id="${messageId}"]`)
-    editTextArea.value = message.querySelector('.message').textContent.trim()
+    editTextArea.value = message.querySelector('.message').textContent.trim();
+    
 }
 
 function hideEditInput(messageId) {
