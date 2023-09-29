@@ -9,7 +9,7 @@ import dotenv
 dotenv.load_dotenv()
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///shareX.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv('DB_URI')
 app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
 
 if os.environ.get("APP_ENV") == 'production':

@@ -1,3 +1,7 @@
+:root {
+    --primary-bg: rgb(82, 82, 228);
+}
+
 /* The header section which includes the logo, username and some buttons */
 #chat-header {
     display: grid;
@@ -8,7 +12,7 @@
 }
 
 
-#chat-header > .logo > h1,
+#chat-header > .logo > h1, 
 .home-btn > h1,
 .username > h2 {
     margin: 0;
@@ -55,8 +59,16 @@
 --------------------------------------------------------------------
 -------------------------------------------------------------------*/
 
+/*---------------------The chat box-----------------------------------------------*/
+
 .chat-message {
-    border: 1px solid blue;
+    margin-bottom: 1rem;
+    border-radius: 10px 0px 10px 10px;
+    padding: 0.5rem;
+    background-color: var(--primary-bg);
+    color: white;
+    clear: both;
+    float: right;
 }
 
 .dots {
@@ -87,12 +99,29 @@
     display: inherit
 }
 
+
+
+/*----------------------------------------
+-------------------------------------------
+------------------------------------------*/
+
+/*----------Input area---------------------*/
+.input-area {
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+}
+
 #chat-form {
     margin: auto;
     display: flex;
     justify-content: center;
     align-items: end;
-    width: 80%;
+
+    background-color: #fff;
+    
 }
 
 textarea {
@@ -105,8 +134,8 @@ textarea {
     max-height: 200px;
     height: 56px;
     overflow-y: hidden;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-
 
 .input-area > #chat-form > button {
     padding: 8px 16px;
@@ -118,9 +147,6 @@ textarea {
     max-height: 30px;
 }
 
-button:hover {
-    background-color: #0056b3;
-}
 
 /*----------------------------------------
 --------------Media Queries --------------
@@ -140,5 +166,8 @@ button:hover {
         grid-template-columns: 5% 7% 33% 45% 10%;    
     }
 
-    
+    .chat-message {
+        max-width: 80%;
+
+    }   
 }
