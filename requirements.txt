@@ -6,4 +6,4 @@ Werkzeug
 wtf
 gunicorn
 psycopg2-binary
-
+flask_login
