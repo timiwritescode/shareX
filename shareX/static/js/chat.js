@@ -19,6 +19,47 @@ Array.from(dotsBtns).forEach((dotsBtn) => {
 });
 });
 
+const showEditBtns = document.querySelectorAll('#show-edit-btn');
+const deleteBtns = document.querySelectorAll('#delete-btn')
+const saveEditBtns = document.querySelectorAll('#save-edit-btn')
+const hideEditBtns = document.querySelectorAll('#hide-edit-btn')
+
+Array.from(showEditBtns).forEach((showEditBtn) => {
+    let messageId = getMessageIdFromClickedButton(showEditBtn)
+    showEditBtn.addEventListener('click', ()=> {
+        showEditInput(messageId)
+    })
+});
+
+Array.from(deleteBtns).forEach((deleteBtn)=>{
+    let messageId = getMessageIdFromClickedButton(deleteBtn)
+    deleteBtn.addEventListener('click', ()=>{
+        deleteMessage(messageId);
+    })
+}) 
+
+Array.from(saveEditBtns).forEach((saveEditBtn)=>{
+    let messageId = getMessageIdFromClickedButton(saveEditBtn)
+    saveEditBtn.addEventListener('click', ()=>{
+        editMessage(messageId);
+    })
+    
+}) 
+
+Array.from(hideEditBtns).forEach((hideEditBtn)=>{
+    let messageId = getMessageIdFromClickedButton(hideEditBtn)
+    hideEditBtn.addEventListener('click', ()=>{
+        hideEditInput(messageId);
+    })
+}) 
+
+// function to get the message Id of a button clicked of a particular message
+function getMessageIdFromClickedButton(button) {
+    let messageId = button.attributes['data-message-id'].value
+    console.log("message id: "+ messageId)
+    return +messageId 
+}
+
 function showEditInput(messageId) {
     console.log(messageId)
     const editMessage = document.querySelector(`.edit-container[data-message-id="${messageId}"]`)

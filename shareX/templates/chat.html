@@ -31,15 +31,15 @@
                     <div class="time">{{message.updated_at}}</div>
                     <div  id="dots" class="dots-container"><h4 class="dots">...</h4></div>
                     <div id="dialog-box" class="dialog-box">
-                        <button type="submit" onclick="deleteMessage({{message.id}})" class="delete-message">Delete message</button>
-                        <button type="submit" onclick="showEditInput({{message.id}})" class="edit-message">Edit Message</button>     
+                        <button type="submit" id="delete-btn" data-message-id="{{message.id}}" class="delete-message">Delete message</button>
+                        <button type="submit" id="show-edit-btn" data-message-id="{{message.id}}" class="edit-message">Edit Message</button>     
                     </div>
                     
                 <!--<form id="patch-form">-->
                     <div class="edit-container" data-message-id="{{message.id}}">
                         <textarea name="edit" id="edit-textarea" cols="30" rows="10" data-message-id="{{message.id}}"></textarea>
-                        <button onclick="editMessage({{message.id}})" type="submit">Edit</button>
-                        <button class="cancel-btn" onclick="hideEditInput({{message.id}})">Cancel</button>        
+                        <button id="save-edit-btn" data-message-id="{{message.id}}" type="submit">Edit</button>
+                        <button class="cancel-btn" id="hide-edit-btn" data-message-id="{{message.id}}">Cancel</button>        
                     </div>
                 <!--</form>-->
                 </div>   
