@@ -2,7 +2,6 @@ flask
 flask_sqlalchemy
 flask-migrate
 python-dotenv
-SQLAlchemyg_extensions
 Werkzeug
 wtf
 gunicorn
