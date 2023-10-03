@@ -34,10 +34,14 @@
     {% block main %}{% endblock %}
     
     <script type="text/javascript">
-        const cancelBtn = document.querySelector(".cancel-button");
+        const cancelBtns = document.querySelectorAll(".cancel-button");
 
-        if (cancelBtn) {
-            cancelBtn.addEventListener('click', handleDeleteFlashedMessageButton)
+            
+        if (cancelBtns) {
+            Array.from(cancelBtns).forEach((cancelBtn) => {
+                cancelBtn.addEventListener('click', handleDeleteFlashedMessageButton)
+            })
+            
         
 
         function handleDeleteFlashedMessageButton () {

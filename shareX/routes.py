@@ -119,19 +119,20 @@ def create_room():
             db.session.add(new_room)
             db.session.commit()
             
-            new_room_member = RoomMembers(room_id=new_room.id, 
+            first_member = RoomMembers(room_id=new_room.id, 
                                           user_id=room_creator.id,
-                                          creator=True)
-            db.session.add(new_room_member)
+                                          creator=True) # as a rule, first member doubles as the room_creator or guest
+            db.session.add(first_member)
             db.session.commit()
 
-            other_room_member = RoomMembers(room_id=new_room.id,
-                                            user_id=friend_in_db.id)
-            db.session.add(other_room_member)
+            
+            second_member = RoomMembers(room_id=new_room.id,
+                                            user_id=friend_in_db.id) # guest in the room
+            db.session.add(second_member)
             db.session.commit()
 
             flash(f"Room {new_room.room_name} successfully created", category="success")
-            return redirect(url_for("chat_room"))
+            return redirect(f'/chat_room/{username}?friend={friend}')
         except IntegrityError:
             return "room exists already"
 
@@ -167,14 +168,12 @@ def join_room(room_id):
 def chat_room(username):
     # get the name of the friend user wants to chat with
     friend = request.args.get('friend')
-    print('friend: ', friend)
  
     try:
         room_creator = db.session.execute(db.select(User).filter(User.username==username)).scalar_one()
         
         friend_in_db = db.session.execute(db.select(User).filter(User.username==friend)).scalar_one()
-        
-        print("friend: ", friend_in_db.username)
+
         room_id = create_unique_room_id(room_creator.username, 
                                         friend_in_db.username, 
                                         room_creator.id, 
@@ -222,7 +221,7 @@ def chat_room(username):
                                    guest=guest_username)
         except NoResultFound:
              # create the room
-             # flash("Room don't exist create a one?", category='error')
+            flash("Room don't exist create a one?", category='error')
             return redirect(url_for('create_room'))
     except Exception as e:
         print(e)
