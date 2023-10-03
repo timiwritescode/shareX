@@ -7,9 +7,9 @@
 {% block header %}
     <header id="home-header">
         <h1>
-            Home
+            Home 
         </h1>
-    
+        <span>{{curr_user}}</span>
         <h1 class="logo">ShareX</h1>
         
         <button id="chatBtn"> New message</button>
@@ -28,11 +28,38 @@
             <p class="message-body">Thi is the message from the last sent message</p>
         </div>
     </div>
-    
+    <div>These are all the users in the database </div>
+    {% for user in users %}
+        <div class="user"><a href="/create_room?friend={{user}}">{{user}}</a></div>
+    {% endfor %} 
+
+    <a href="{{url_for('chat')}}">Go to your chat</a>
+
+    <div class="chat-room">
+        <h2>Chat rooms</h2>
+        <div class="created_rooms">
+            <h3>created_rooms</h3>
+            {% for guest in guests %}
+                <p><a href="/chat_room/{{curr_user}}?friend={{guest}}">{{guest}}</a></p>
+            {% endfor%}
+        </div>
+
+        <div class="requests">
+            <h3>Room Requests</h3>
+            <!--Username of the people that sent the request-->
+            {% if room_creators %}
+                {% for creator in room_creators %}
+                    <p><a href="/chat_room/{{creator}}?friend={{curr_user}}">{{creator}}</a></p>
+                {% endfor %}
+            {%else%}
+                <h3 style="color: grey">None</h3>    
+            {% endif %}
+        </div>
+    </div>
 </main>    
     
     <script>
-        let messagePreviews = document.querySelector('.sessions').children
+        let messagePreviews = document.querySelector(".sessions").children
         let chatBtn = document.getElementById('chatBtn')  
         Array.from(messagePreviews).forEach(element => {
             element.addEventListener('click', loadChatRoom)

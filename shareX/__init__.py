@@ -24,5 +24,5 @@ login_manager.login_view = "login"
 login_manager.login_message_category = "warning"
 login_manager.login_message = None
 
-from .models import User, Message
+from .models import User, Message, ChatRoom, ChatRoomMessage, RoomMembers
 from shareX import routes

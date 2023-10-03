@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block Title %}
+    {{room_name}}
+{% endblock %}
+
+{% block header %}
+{% if creator_tag %}
+<h1 class="logo" style="display: inline">Sharex</h1> <span>{{creator_tag}}</span>
+<h3>{{room_name}}</h3>
+{% else %}
+<h1 class="logo" style="display: inline">Sharex</h1> <span>Member</span>
+<h3>{{room_name}}</h3>
+{% endif %}
+
+{% endblock %}
+
+{% block main %}
+{% if messages%}
+
+    <p>Message</p>
+    {% for room_message in room_messages %}
+        <p><b>Sender:</b>{{  get_user_by_id(room_message.sender_id).username }}: {{room_message.message}}</p>
+    {% endfor %}
+
+{% else %}
+    <h3>No messages yet!</h3>
+{% endif %}    
+
+<!--The forms -->
+<form action="/chat_room/{{username}}?friend={{guest}}" method="post">
+    <input type="text" name="message" id="">
+    <button type="submit">Send</button>
+</form>
+
+{% endblock %}

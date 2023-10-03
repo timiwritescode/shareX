@@ -157,4 +157,5 @@ function createDateElement (date) {
     messageArea.appendChild(dateContainer)
 }  
 
-window.addEventListener('DOMContentLoaded', postDate)
+postDate()
+// window.addEventListener('DOMContentLoaded', postDate)
