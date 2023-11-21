@@ -32,8 +32,7 @@ database_path = os.path.join(path, 'database.db')
 
 
 with app.app_context():
-    db.init_app(app)
-    migrate.init_app(app, db)
+    db.create_all()
 
 from .models import User, Message, ChatRoom, ChatRoomMessage, RoomMembers
 from shareX import routes
