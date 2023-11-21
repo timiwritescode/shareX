@@ -30,9 +30,10 @@ login_manager.login_message = None
 path = os.path.join(os.path.dirname(__file__), 'instance')
 database_path = os.path.join(path, 'database.db')
 
-if not os.path.exists(database_path):
-    with app.app_context():
-        db.create_all()
+
+with app.app_context():
+    db.init_app(app)
+    migrate.init_app(app, db)
 
 from .models import User, Message, ChatRoom, ChatRoomMessage, RoomMembers
 from shareX import routes
