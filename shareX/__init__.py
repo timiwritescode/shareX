@@ -31,7 +31,8 @@ path = os.path.join(os.path.dirname(__file__), 'instance')
 database_path = os.path.join(path, 'database.db')
 
 if not os.path.exists(database_path):
-    db.create_all()
+    with app.app_context:
+        db.create_all()
 
 from .models import User, Message, ChatRoom, ChatRoomMessage, RoomMembers
 from shareX import routes
