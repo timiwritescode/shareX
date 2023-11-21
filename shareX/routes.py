@@ -104,7 +104,6 @@ def create_room():
         try:
             friend = request.form['friend']
             
-            
             friend_in_db = db.session.execute(db.select(User).filter_by(username=friend)).scalar_one()
             room_creator = db.session.execute(db.select(User).filter_by(username=username)).scalar_one()
             
@@ -125,7 +124,6 @@ def create_room():
             db.session.add(first_member)
             db.session.commit()
 
-            
             second_member = RoomMembers(room_id=new_room.id,
                                             user_id=friend_in_db.id) # guest in the room
             db.session.add(second_member)

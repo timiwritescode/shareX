@@ -17,12 +17,21 @@ if os.environ.get("APP_ENV") == 'production':
 else:
     app.config.from_object(DevelopmentConfig)
 
+
+
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
 login_manager.login_message_category = "warning"
 login_manager.login_message = None
+
+path = os.path.join(os.path.dirname(__file__), 'instance')
+database_path = os.path.join(path, 'database.db')
+
+if not os.path.exists(database_path):
+    db.create_all()
 
 from .models import User, Message, ChatRoom, ChatRoomMessage, RoomMembers
 from shareX import routes
