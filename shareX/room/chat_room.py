@@ -74,7 +74,7 @@ def chat_room(username):
                                    guest=guest_username)
         except NoResultFound:
             # create the room
-            flash("Room don't exist create a one?", category='error')
+            flash("Room does not exist create one?", category='error')
             return redirect(url_for('create_room'))
     except Exception as e:
         print(e)
