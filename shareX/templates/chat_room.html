@@ -16,19 +16,22 @@
 {% endblock %}
 
 {% block main %}
+<div id="messages">
 {% if messages%}
 
+
     <p>Message</p>
-    <div id="messages">
+    
         {% for room_message in room_messages %}
         <p><b>{{  get_user_by_id(room_message.sender_id).username }}:</b>: {{room_message.message}}</p>
     {% endfor %}
-    </div>
+    
     
 
 {% else %}
     <h3>No messages yet!</h3>
 {% endif %}    
+</div>
 
 <!--The forms -->
 <form action="/chat_room/{{username}}?friend={{guest}}" method="post">
