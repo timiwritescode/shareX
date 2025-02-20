@@ -4,7 +4,7 @@ from shareX import app
 from shareX.database.config import db
 from shareX.database.models import (User, ChatRoom,
                                     RoomMembers)
-from shareX.util.util import create_unique_room_id
+from .util import create_unique_room_id
 
 from flask import (render_template, request,
                    redirect, flash)
