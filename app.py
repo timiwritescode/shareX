@@ -5,5 +5,5 @@ if __name__ == "__main__":
     # database_path = os.path.join(path, 'database.database')
     # print(os.path.exists(database_path))
     # print(path)
-    socketio.run(app)
+    socketio.run(app, cors_allowed_origins="*", async_mode="eventlet")
     

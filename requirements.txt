@@ -5,15 +5,10 @@ Flask-Login
 Flask-Migrate
 Flask-SocketIO
 Flask-SQLAlchemy
+eventlet
 gunicorn
 psycopg2-binary
 PyJWT
-PyQt5
-PyQt5-Qt5
-PyQt5-sip
 python-dotenv
-python-engineio
 python-socketio
 SQLAlchemy
-typing_extensions
-wtf
