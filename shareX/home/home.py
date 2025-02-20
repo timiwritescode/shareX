@@ -1,6 +1,7 @@
-from shareX import app, db
-from shareX.models import User, RoomMembers,ChatRoom
-from shareX.util.helper_functions import get_user_by_id
+from shareX import app
+from shareX.database.config import db
+from shareX.database.models import User, RoomMembers,ChatRoom
+from shareX.util.util import get_user_by_id
 
 from flask_login import login_required, current_user
 from flask import render_template, flash, redirect, url_for

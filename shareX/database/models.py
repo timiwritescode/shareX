@@ -1,6 +1,6 @@
 # this is where all the models will live in
-from shareX import db, login_manager
-from sqlalchemy.sql import func
+from .config import db
+from shareX import login_manager
 from datetime import datetime
 from flask_login import UserMixin
 

@@ -1,12 +1,12 @@
 from shareX import app
-from shareX import db
-from shareX.models import (User, ChatRoom,
-                           ChatRoomMessage, RoomMembers)
-from shareX.util.helper_functions import create_unique_room_id
+from shareX.database.config import db
+from shareX.database.models import (User, ChatRoom,
+                                    RoomMembers)
+from shareX.util.util import create_unique_room_id
 
 
 from flask import (render_template, request,
-                   redirect, url_for, flash, jsonify)
+                   redirect, flash)
 from flask_login import current_user, login_required
 from sqlalchemy.exc import IntegrityError
 

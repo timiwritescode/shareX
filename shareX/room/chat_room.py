@@ -1,13 +1,13 @@
 from shareX import app
-from shareX import db
-from shareX.models import (User, ChatRoom,
-                           ChatRoomMessage, RoomMembers)
-from shareX.util.helper_functions import create_unique_room_id, get_user_by_id
+from shareX.database.config import db
+from shareX.database.models import (User, ChatRoom,
+                                    ChatRoomMessage, RoomMembers)
+from shareX.util.util import create_unique_room_id, get_user_by_id
 
 from flask import (render_template, request,
-                   redirect, url_for, flash, jsonify)
+                   redirect, url_for, flash)
 from flask_login import current_user, login_required
-from sqlalchemy.exc import IntegrityError, NoResultFound
+from sqlalchemy.exc import NoResultFound
 
 
 # to add new members to a room, it can be done by having a

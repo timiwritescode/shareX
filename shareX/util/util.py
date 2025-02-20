@@ -1,5 +1,5 @@
-from shareX import db
-from shareX.models import User
+from shareX.database.config import db
+from shareX.database.models import User
 
 def validate_password(id, password):
     user = db.session.execute

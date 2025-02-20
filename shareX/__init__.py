@@ -1,39 +1,38 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 from flask_login import LoginManager
-from config import ProductionConfig, DevelopmentConfig
-import os
+
+from shareX.config import ProductionConfig, DevelopmentConfig
 import dotenv
 
 dotenv.load_dotenv()
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv('DB_URI')
-app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
+# app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv('DB_URI')
+# app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
 
-if os.environ.get("APP_ENV") == 'production':
-    app.config.from_object(ProductionConfig)
-else:
-    app.config.from_object(DevelopmentConfig)
-
-
+# if os.environ.get("APP_ENV") == 'production':
+#     app.config.from_object(ProductionConfig)
+# else:
+#     app.config.from_object(DevelopmentConfig)
 
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+
+
+# database = SQLAlchemy(app)
+# migrate = Migrate(app, database)
+
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
 login_manager.login_message_category = "warning"
 login_manager.login_message = None
 
-path = os.path.join(os.path.dirname(__file__), 'instance')
-database_path = os.path.join(path, 'database.db')
 
 
-from .models import User, Message, ChatRoom, ChatRoomMessage, RoomMembers
+from shareX.database.models import User, Message, ChatRoom, ChatRoomMessage, RoomMembers
 from shareX import routes
 
 
+
 with app.app_context():
+    from .database.config import db
     db.create_all()

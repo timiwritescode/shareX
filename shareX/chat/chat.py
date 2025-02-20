@@ -1,5 +1,7 @@
-from shareX import app, db
-from shareX.models import Message
+from shareX import app
+from shareX.database.config import db
+
+from shareX.database.models import Message
 
 from flask_login import login_required, current_user
 from flask import (request, redirect,

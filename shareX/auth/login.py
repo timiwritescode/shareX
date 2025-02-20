@@ -1,5 +1,6 @@
-from shareX import app, db
-from shareX.models import User
+from shareX import app
+from shareX.database.config import db
+from shareX.database.models import User
 
 from flask import (request, flash,
                    redirect, url_for,

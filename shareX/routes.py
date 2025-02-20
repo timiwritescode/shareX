@@ -9,7 +9,7 @@ import shareX.room
 def join_room(room_id):
     current_user = current_user
     try:
-        room = db.session.execute(db.select(RoomMembers).filter_by(room_id=room_id, user_id=)).scalar_one()
+        room = database.session.execute(database.select(RoomMembers).filter_by(room_id=room_id, user_id=)).scalar_one()
         
         user_id = current_user.id
     except NoResultFound:
