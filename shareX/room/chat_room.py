@@ -1,4 +1,4 @@
-from shareX import app
+from shareX import app, socketio
 from shareX.database.config import db
 from shareX.database.models import (User, ChatRoom,
                                     ChatRoomMessage, RoomMembers)
@@ -9,6 +9,7 @@ from flask import (render_template, request,
                    redirect, url_for, flash)
 from flask_login import current_user, login_required
 from sqlalchemy.exc import NoResultFound
+from flask_socketio import emit
 
 
 # to add new members to a room, it can be done by having a
@@ -17,7 +18,7 @@ from sqlalchemy.exc import NoResultFound
 
 @app.route('/chat_room/<string:username>', methods=["GET", "POST"])
 @login_required
-def chat_room(username):
+def chat_room(username ):
     # get the name of the friend user wants to chat with
     friend = request.args.get('friend')
 
@@ -64,6 +65,7 @@ def chat_room(username):
                 db.session.commit()
                 return redirect(f'/chat_room/{username}?friend={guest_username}')
 
+            logged_in_user = current_user.username
             return render_template('chat_room.html',
                                    room_messages=room_messages_list,
                                    room_name=room_name,
@@ -71,7 +73,9 @@ def chat_room(username):
                                    creator_tag=creator_tag,
                                    username=username,
                                    get_user_by_id=get_user_by_id,
-                                   guest=guest_username)
+                                   guest=guest_username,
+                                   current_user_username=logged_in_user,
+                                   chat_room_id=chat_room.id)
         except NoResultFound:
             # create the room
             flash("Room does not exist create one?", category='error')
@@ -80,3 +84,33 @@ def chat_room(username):
         print(e)
         flash('An unexpected error occured from our end')
         return (redirect(url_for('chat_room')))
+
+
+@socketio.on('room-message')
+@login_required
+def handle_message(data):
+
+    try:
+        sender_username = data['sender']
+        message = data['message']
+        room_id = data['room_id']
+        # statement = db.select(User).filter(User.username == sender_username)
+        # message_sender_in_db = db.session(statement).scalar_one()
+        new_message = ChatRoomMessage(
+                            message=message,
+                            sender_id=current_user.id,
+                            room_id = room_id
+                                      )
+        db.session.add(new_message)
+        db.session.commit()
+
+        # broadcast message back to  chat room
+        broadcast_message = {
+            "sender": sender_username,
+            "message": message
+        }
+        emit('message', broadcast_message, broadcast=True)
+    except Exception as e:
+        print(e)
+        # pass
+    print("Received message: ", data)

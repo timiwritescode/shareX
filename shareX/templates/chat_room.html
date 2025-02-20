@@ -19,9 +19,12 @@
 {% if messages%}
 
     <p>Message</p>
-    {% for room_message in room_messages %}
-        <p><b>Sender:</b>{{  get_user_by_id(room_message.sender_id).username }}: {{room_message.message}}</p>
+    <div id="messages">
+        {% for room_message in room_messages %}
+        <p><b>{{  get_user_by_id(room_message.sender_id).username }}:</b>: {{room_message.message}}</p>
     {% endfor %}
+    </div>
+    
 
 {% else %}
     <h3>No messages yet!</h3>
@@ -33,4 +36,48 @@
     <button type="submit">Send</button>
 </form>
 
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf-8">
+        const socket = io();
+        socket.on('connect', function() {
+            socket.emit('message', {data: 'I\'m connected!'});
+        });
+
+        // recieve message from server
+        socket.on('message', function(data) {
+            // alert("data")
+            const messageParaTag = document.createElement('p');
+            
+            const messageSenderLabel = document.createElement('b');
+            messageSenderLabel.textContent = data.sender + ": "
+            messageParaTag.appendChild(messageSenderLabel)
+
+            const messageSpanTag = document.createElement('span');
+            messageSpanTag.textContent = data.message;
+            messageParaTag.appendChild(messageSpanTag)
+            
+            const messagesContainer = document.getElementById('messages');
+            messagesContainer.appendChild(messageParaTag)
+
+            // document.body.appendChild(messagesContainer)
+
+        })
+
+
+        // send message
+        const formElement = document.querySelector('form');
+        formElement.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const messageInput = document.querySelector("input[name='message']")
+            socket.emit("room-message", {
+                sender: "{{ current_user_username}}",
+                message: messageInput.value,
+                room_id: "{{chat_room_id}}"
+            })
+            messageInput.value = ""
+        })
+    </script>
 {% endblock %}
